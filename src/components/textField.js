@@ -1,5 +1,8 @@
 import React from 'react';
 import TextField from '@mui/material/TextField';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 
 const TextFieldMessage = ({ messageText }) => {
 
@@ -7,9 +10,10 @@ const TextFieldMessage = ({ messageText }) => {
     if (event.key === 'Enter') {
       let value = document.getElementById('input-textfield');
       if (value.value !== '') {
-        console.log('Value = ', value.value)
-      } else {
-        console.log('Value is null')
+        const db = firebase.firestore();
+        db.collection("ynov-sophia").doc(value.value).set({
+          message: value.value,
+        })
       }
     }
   }
