@@ -3,6 +3,8 @@ import './App.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
+import Message from './components/message';
+import TextFieldMessage from './components/textField';
 
 function App() {
   const initialValue = [
@@ -22,9 +24,12 @@ function App() {
 
   return (
     <div className="App">
-      {messageList.map((message, index) => (
-        <p key={message.message}>{message.message}</p>
-      ))}
+      <div style={{ marginTop: 30 }}>
+        {messageList.map((message) => (
+          <Message messageText={message.message}></Message>
+        ))}
+        <TextFieldMessage />
+      </div>
     </div >
   );
 }
