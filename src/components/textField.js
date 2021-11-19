@@ -1,5 +1,6 @@
 import React from 'react';
-import TextField from '@mui/material/TextField';
+import { TextField, Button } from '@mui/material/';
+import ReactDOM from "react-dom";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
@@ -10,10 +11,12 @@ const TextFieldMessage = ({ messageText }) => {
     if (event.key === 'Enter') {
       let value = document.getElementById('input-textfield');
       if (value.value !== '') {
+        let newMessage = value.value
+        value.value = '';
         const db = firebase.firestore();
-        db.collection("ynov-sophia").doc(value.value).set({
-          message: value.value,
-        })
+        db.collection("ynov-sophia").doc(newMessage).set({
+          message: newMessage,
+        });
       }
     }
   }
@@ -33,6 +36,16 @@ const TextFieldMessage = ({ messageText }) => {
         variant="outlined"
         onKeyDown={handleKeyDown}
       />
+      <Button
+        fullWidth
+        style={{
+          marginTop: 5,
+        }}
+        variant="outlined"
+        onClick={() => window.location.reload(false)}
+      >
+        Refresh
+      </Button>
     </div >
   );
 };
