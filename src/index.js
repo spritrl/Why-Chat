@@ -3,7 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 
+const firebaseConfig = {
+  apiKey: "AIzaSyDeTJMIiyIEByacSXjxZYSWGwXU9pzZkrw",
+  authDomain: "why-chat-f7b2f.firebaseapp.com",
+  projectId: "why-chat-f7b2f",
+  storageBucket: "why-chat-f7b2f.appspot.com",
+  messagingSenderId: "938066553390",
+  appId: "1:938066553390:web:7915ab1d5734ade2864dbf"
+};
+
+firebase.initializeApp(firebaseConfig);
 ReactDOM.render(
   <React.StrictMode>
     <App />
