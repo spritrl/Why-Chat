@@ -1,25 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
 
 function App() {
+  const initialValue = [
+    { message: "" }];
+
+  const [messageList, setMessageList] = useState(initialValue);
+
+  useEffect(() => {
+    const db = firebase.firestore();
+    db.collection('ynov-sophia')
+      .get()
+      .then(querySnapshot => {
+        const documents = querySnapshot.docs.map(doc => doc.data())
+        setMessageList(documents);
+      })
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      {messageList.map((message, index) => (
+        <p key={message.message}>{message.message}</p>
+      ))}
+    </div >
   );
 }
 
